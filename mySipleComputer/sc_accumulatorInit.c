@@ -2,6 +2,6 @@
 
 int sc_accumulatorInit(void)
 {
-    accumulator = 0;
+    accumulator.var = 0;
     return 0;
 }
