@@ -1,2 +1,2 @@
 #include "../include/mem.h"
-memory[memorySize];
+int memory[memorySize];
