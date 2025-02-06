@@ -3,8 +3,8 @@
 
 #include "mytype.h"
 
-extern int accumulator;
-extern int commandCounter;
+extern int_15bit accumulator;
+extern int_15bit commandCounter;
 
 extern int flagsRegister;
 #define REGISTER_OVERFLOW 1
