@@ -1,7 +1,9 @@
 #ifndef MEM_H
 #define MEM_H
 
+#include "mytype.h"
+
 #define memorySize 128
-extern int memory[];
+extern int_15bit memory[];
 
 #endif

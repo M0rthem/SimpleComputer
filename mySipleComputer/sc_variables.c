@@ -1,8 +1,8 @@
 #include "../include/mem.h"
 #include "../include/register.h"
 
-int memory[memorySize];
+int_15bit memory[memorySize];
 
-int accumulator;
-int commandCounter;
+int_15bit accumulator;
+int_15bit commandCounter;
 int flagsRegister;

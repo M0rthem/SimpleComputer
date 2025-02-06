@@ -7,7 +7,7 @@ int sc_memorySave(char* filename)
     if (file == NULL) {
         return -1;
     }
-    int writeSuccess = fwrite(memory, sizeof(int), memorySize, file);
+    int writeSuccess = fwrite(memory, sizeof(int_15bit), memorySize, file);
     if (writeSuccess != memorySize) {
         return -1;
     }

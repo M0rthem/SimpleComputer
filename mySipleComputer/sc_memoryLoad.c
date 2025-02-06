@@ -8,8 +8,8 @@ int sc_memoryLoad(char* filename)
     if (file == NULL) {
         return -1;
     }
-    int buffer[memorySize];
-    int readSuccess = fread(buffer, sizeof(int), memorySize, file);
+    int_15bit buffer[memorySize];
+    int readSuccess = fread(buffer, sizeof(int_15bit), memorySize, file);
     if (readSuccess != memorySize) {
         return -1;
     }

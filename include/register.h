@@ -1,6 +1,8 @@
 #ifndef REGISTER_H
 #define REGISTER_H
 
+#include "mytype.h"
+
 extern int accumulator;
 extern int commandCounter;
 
