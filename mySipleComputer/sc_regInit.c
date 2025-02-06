@@ -2,6 +2,6 @@
 
 int regInit(void)
 {
-    flagsRegister = 0;
+    flagsRegister = REGISTER_IGNORE_TACT;
     return 0;
 }
