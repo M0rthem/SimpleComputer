@@ -1,5 +1,5 @@
 #include "../include/register.h"
-#include <stdio.h>
+
 int sc_regSet(int reg, int value)
 {
     if ((reg & 0xFFFE) == 0) {
