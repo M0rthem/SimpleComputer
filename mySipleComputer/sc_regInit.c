@@ -1,6 +1,6 @@
 #include "../include/register.h"
 
-int regInit(void)
+int sc_regInit(void)
 {
     flagsRegister = REGISTER_IGNORE_TACT;
     return 0;
