@@ -1,6 +1,8 @@
 #ifndef MYSIMPLECOMPUTER_H
 #define MYSIMPLECOMPUTER_H
 
+#include "register.h"
+
 int sc_memoryInit(void);
 int sc_memorySet(int address, int value);
 int sc_memoryGet(int address, int* value);
