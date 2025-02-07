@@ -1,4 +1,5 @@
 #include "mySimpleComputer.h"
+#include <stdio.h>
 
 void printAccumulator(void)
 {
