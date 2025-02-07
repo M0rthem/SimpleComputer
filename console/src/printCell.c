@@ -14,5 +14,5 @@ void printCell(int address)
         putchar('-');
     }
     sc_commandDecode(value, &sign, &command, &opperand);
-    printf("%X%X", command, opperand);
+    printf("%0*X%0*X", 2, command, 2, opperand);
 }
