@@ -21,4 +21,8 @@ int sc_commandEncode(int sign, int command, int opperand, int* value);
 int sc_commandDecode(int value, int* sign, int* command, int* opperand);
 int sc_commandValidate(int command);
 
+int sc_accumulatorInit(void);
+int sc_accumulatorSet(int value);
+int sc_accumulatorGet(int* value);
+
 #endif
