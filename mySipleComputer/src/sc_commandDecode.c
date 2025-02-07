@@ -1,4 +1,4 @@
-#include "../include/mytype.h"
+#include "mytype.h"
 #include <stdio.h>
 
 int sc_commandDecode(int value, int* sign, int* command, int* opperand)

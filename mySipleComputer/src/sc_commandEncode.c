@@ -1,4 +1,4 @@
-#include "../include/mytype.h"
+#include "mytype.h"
 
 int sc_commandEncode(int sign, int command, int opperand, int* value)
 {

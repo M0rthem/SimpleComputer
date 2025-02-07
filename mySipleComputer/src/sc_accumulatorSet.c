@@ -1,4 +1,4 @@
-#include "../include/register.h"
+#include "register.h"
 
 int sc_accumulatorSet(int value)
 {

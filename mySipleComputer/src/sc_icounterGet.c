@@ -1,4 +1,4 @@
-#include "../include/register.h"
+#include "register.h"
 #include <stdio.h>
 
 int sc_icounterGet(int* value)

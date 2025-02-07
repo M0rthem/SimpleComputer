@@ -1,4 +1,4 @@
-#include "../include/mem.h"
+#include "mem.h"
 
 int sc_memorySet(int address, int value)
 {

@@ -1,5 +1,5 @@
-#include "../include/mem.h"
-#include "../include/register.h"
+#include "mem.h"
+#include "register.h"
 
 int_15bit memory[memorySize];
 

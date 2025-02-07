@@ -1,4 +1,4 @@
-#include "../include/register.h"
+#include "register.h"
 
 int sc_regGet(int reg, int* value)
 {
