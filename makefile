@@ -1,10 +1,7 @@
-all: test
+all: pr01
 
-test: test.o
-	gcc test.o -o test
-
-test.o: console/test.c
-	gcc -c console/test.c
+pr01: ./console/pr01
+	cd ./console && make
 
 clean:
 	rm -rf *.o test
