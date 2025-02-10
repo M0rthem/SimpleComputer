@@ -1,6 +1,6 @@
-all: pr01
+all: ./console/pr01
 
-pr01: ./console/pr01
+./console/pr01:
 	cd ./console && make
 
 clean:
