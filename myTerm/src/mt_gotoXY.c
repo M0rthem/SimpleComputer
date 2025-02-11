@@ -10,7 +10,7 @@ int mt_gotoXY(int x, int y)
     int flag = 0;
     flag = write(1, buffer, byte_count);
     if (flag < byte_count) {
-        return -1
+        return -1;
     }
     return 0;
 }
