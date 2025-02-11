@@ -5,10 +5,5 @@
 int setfgcolor(enum colors color)
 {
     printf("\033[3%dm", color);
-}
-
-int main()
-{
-    setfgcolor(BLUE);
-    printf("FDSFDS");
+    return 0;
 }
