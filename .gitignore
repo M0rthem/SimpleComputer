@@ -1,4 +1,4 @@
-mySimpleComputer/libmySimpleComputer.a
-mySimpleComputer/obj/*.o
+*.a
+*.o
 console/obj/*.o
 console/pr01
