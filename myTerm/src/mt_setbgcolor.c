@@ -3,7 +3,7 @@
 #include <string.h>
 #include <unistd.h>
 
-int setbgcolor(enum colors color)
+int mt_setbgcolor(enum colors color)
 {
     char buffer[50];
     sprintf(buffer, "\033[4%dm", color);

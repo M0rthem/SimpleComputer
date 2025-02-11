@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <unistd.h>
 
-int setdefaultcolor()
+int mt_setdefaultcolor()
 {
     int flag = 0;
     flag = write(1, "\033[0m", 4);
