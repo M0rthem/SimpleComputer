@@ -5,7 +5,7 @@
 int mt_gotoXY(int x, int y)
 {
     char buffer[50];
-    sprintf(buffer, "033[%d;%dH", x, y);
+    sprintf(buffer, "033[%d;%dH", y, x);
     unsigned int byte_count = strlen(buffer);
     int flag = 0;
     flag = write(1, buffer, byte_count);
