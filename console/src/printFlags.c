@@ -4,7 +4,7 @@
 
 void printFlags(void)
 {
-    mt_gotoXY(108, 1);
+    mt_gotoXY(108, 2);
 
     int ind = 0;
     sc_regGet(REGISTER_OVERFLOW, &ind);
