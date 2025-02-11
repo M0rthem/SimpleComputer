@@ -1,8 +1,11 @@
+#include "myTerm.h"
 #include <mySimpleComputer.h>
 #include <stdio.h>
-
+// 108
 void printFlags(void)
 {
+    mt_gotoXY(108, 1);
+
     int ind = 0;
     sc_regGet(REGISTER_OVERFLOW, &ind);
     if (ind == 0) {
