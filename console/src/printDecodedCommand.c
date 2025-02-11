@@ -1,7 +1,10 @@
+#include "myTerm.h"
 #include <stdio.h>
 
 void printDecodedCommand(int value)
 {
+    mt_gotoXY(1, 16);
+
     printf("dec: %0*u | oct: %0*o | hex: %0*X | bin: ",
            5,
            value,

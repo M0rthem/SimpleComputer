@@ -1,7 +1,7 @@
 #include "myTerm.h"
 #include <mySimpleComputer.h>
 #include <stdio.h>
-// 108
+
 void printFlags(void)
 {
     mt_gotoXY(108, 1);
