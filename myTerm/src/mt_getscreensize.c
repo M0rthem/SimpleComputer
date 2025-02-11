@@ -1,5 +1,5 @@
 #include <sys/ioctl.h>
-#include <unistd.h>W
+#include <unistd.h>
 
 int mt_getscreensize(int* rows, int* cols)
 {
@@ -7,7 +7,7 @@ int mt_getscreensize(int* rows, int* cols)
     if (ioctl(1, TIOCGWINSZ, &ws) == -1) {
         return -1;
     }
-    *row = ws.ws_row;
+    *rows = ws.ws_row;
     *cols = ws.ws_col;
     return 0;
 }
