@@ -1,4 +1,3 @@
-// #include "term.h"
 #include "myTerm.h"
 #include <stdio.h>
 
