@@ -7,5 +7,6 @@ void printCell(int address, enum colors fg, enum colors bg);
 void printCounters(void);
 void printDecodedCommand(int value);
 void printFlags(void);
+void printTerm(int address, int input);
 
 #endif
