@@ -4,7 +4,7 @@
 
 void printCounters(void)
 {
-    mt_gotoXY(60, 5);
+    mt_gotoXY(63, 5);
 
     int value;
     int sign;
@@ -20,4 +20,5 @@ void printCounters(void)
         putchar('-');
     }
     printf("%0*X%0*x", 2, command, 2, opperand);
+    fflush(stdout);
 }
