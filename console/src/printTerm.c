@@ -1,0 +1,38 @@
+#include <mySimpleComputer.h>
+#include <myTerm.h>
+#include <stdio.h>
+
+char INOUT[5][15] = {"", "", "", "", ""};
+
+void printTerm(int address, int input) // input = 0 вывод иначе ввод
+{
+    int sign;
+    int command;
+    int opperand;
+    int value;
+    sc_memoryGet(address, &value);
+    sc_commandDecode(value, &sign, &command, &opperand);
+
+    char buffer[10];
+    snprintf(
+            buffer,
+            sizeof(buffer),
+            "%0*X> %c%0*d%0*d",
+            2,
+            address,
+            (sign == 0) ? '+' : '-',
+            2,
+            command,
+            2,
+            opperand);
+
+    for (int i = 0; i < 5 - 1; i++) {
+        snprintf(INOUT[i], sizeof(INOUT[i]), "%s", INOUT[i + 1]);
+    }
+    snprintf(INOUT[5 - 1], sizeof(INOUT[5 - 1]), "%s", buffer);
+
+    mt_gotoXY(67, 19);
+    for (int i = 0; i != 5; i++) {
+        printf("%s\n", INOUT[i]);
+    }
+}
