@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "register.h": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "vector": "c"
     }
 }
