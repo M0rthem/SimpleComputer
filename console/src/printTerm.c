@@ -26,12 +26,13 @@ void printTerm(int address, int input) // input = 0 вывод иначе вво
             2,
             opperand);
 
-    for (int i = 0; i < 5 - 1; i++) {
+    for (int i = 0; i != 4; i++) {
         snprintf(INOUT[i], sizeof(INOUT[i]), "%s", INOUT[i + 1]);
     }
     snprintf(INOUT[5 - 1], sizeof(INOUT[5 - 1]), "%s", buffer);
     int start_X = 67;
     int start_Y = 19;
+    mt_gotoXY(start_X, start_Y);
     for (int i = 0; i != 5; i++) {
         printf("%s", INOUT[i]);
         fflush(stdout);
