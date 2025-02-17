@@ -45,4 +45,4 @@ $(TERMDIR)/$(OBJ)/%.o: $(TERMDIR)/$(SRC)/%.c
 	$(CC) -c -I $(INCLUDES) $< -o $@
 
 clean:
-	rm -rf *.o test
+	rm -rf $(OBJS_CONSOLE) $(OBJS_TERM) $(OBJS_COMPUTER) $(LIBTERMPATH) $(LIBCOMPUTERPATH) ./console/console
