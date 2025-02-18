@@ -16,4 +16,12 @@ done
 echo -n -e "\E[$y;5H"
 echo "mqqqqqqj"
 
+echo -n -e "\E[11;1H"
+echo -e "\E[5aaaaaaa"
+echo -e "\E[5aaa"
+echo -e "\E[5aaa"
+echo -e "\E[5aaaaaaa"
+echo -e "\E[9aaa"
+echo -e "\E[5aaaaaaa"
+echo -n -e "\E[20;1H"
 printf "\E(B"
