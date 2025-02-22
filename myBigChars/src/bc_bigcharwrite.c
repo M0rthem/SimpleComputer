@@ -1,6 +1,6 @@
 #include <unistd.h>
 
-int bigcharwrite(int fd, int* big, int count)
+int bc_bigcharwrite(int fd, int* big, int count)
 {
     int flag;
     flag = write(fd, big, count * sizeof(int) * 2);
