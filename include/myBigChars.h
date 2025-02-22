@@ -1,6 +1,8 @@
 #ifndef MYBIGCHARS_H
 #define MYBIGCHARS_H
 
+#include "myTerm.h"
+
 int bc_strlen(char* str);
 int bc_printA(char* str);
 int bc_setbigcharpos(int* big, int x, int y, int value);

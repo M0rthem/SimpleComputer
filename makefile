@@ -21,10 +21,16 @@ OBJS_TERM = $(SRCS_TERM:$(TERMDIR)/$(SRC)/%.c=$(TERMDIR)/$(OBJ)/%.o)
 LIBTERMINC = myTerm
 LIBTERMPATH = $(TERMDIR)/lib$(LIBTERMINC).a
 
+CHARSDIR = ./myBigChars
+SRCS_CHARS = $(wildcard $(CHARSDIR)/$(SRC)/*.c)
+OBJS_CHARS = $(SRCS_CHARS:$(CHARSDIR)/$(SRC)/%.c=$(CHARSDIR)/$(OBJ)/%.o)
+LIBCHARSC = myBigChars
+LIBCHARSPATH = $(CHARSDIR)/lib$(LIBCHARSC).a
+
 all: ./console/console
 
-./console/console: $(OBJS_CONSOLE) $(LIBCOMPUTERPATH) $(LIBTERMPATH)
-	$(CC) $(OBJS_CONSOLE) -L $(COMPUTERDIR) -L $(TERMDIR) -l$(LIBCOMPUTER) -l$(LIBTERMINC) -o ./console/console
+./console/console: $(OBJS_CONSOLE) $(LIBCOMPUTERPATH) $(LIBTERMPATH) $(LIBCHARSPATH)
+	$(CC) $(OBJS_CONSOLE) -L $(COMPUTERDIR) -L $(TERMDIR) -L $(CHARSDIR) -l$(LIBCOMPUTER) -l$(LIBTERMINC) -l$(LIBCHARSC) -o ./console/console
 
 $(CONSOLEDIR)/$(OBJ)/%.o: $(CONSOLEDIR)/$(SRC)/%.c
 	$(CC) -c -I $(INCLUDES) $< -o $@
@@ -44,5 +50,12 @@ $(LIBTERMPATH): $(OBJS_TERM)
 $(TERMDIR)/$(OBJ)/%.o: $(TERMDIR)/$(SRC)/%.c
 	$(CC) -c -I $(INCLUDES) $< -o $@
 
+
+$(LIBCHARSPATH): $(OBJS_CHARS)
+	ar rcs $(LIBCHARSPATH) $(OBJS_CHARS)
+
+$(CHARSDIR)/$(OBJ)/%.o: $(CHARSDIR)/$(SRC)/%.c
+	$(CC) -c -I $(INCLUDES) $< -o $@
+
 clean:
-	rm -rf $(OBJS_CONSOLE) $(OBJS_TERM) $(OBJS_COMPUTER) $(LIBTERMPATH) $(LIBCOMPUTERPATH) ./console/console
+	rm -rf $(OBJS_CONSOLE) $(OBJS_TERM) $(OBJS_COMPUTER) $(OBJS_CHARS) $(LIBTERMPATH) $(LIBCOMPUTERPATH) $(LIBCHARSPATH) ./console/console
