@@ -31,7 +31,7 @@ void printTerm(int address, int input) // input = 0 вывод иначе вво
     }
     snprintf(INOUT[5 - 1], sizeof(INOUT[5 - 1]), "%s", buffer);
     int start_X = 67;
-    int start_Y = 19;
+    int start_Y = 20;
     mt_gotoXY(start_X, start_Y);
     for (int i = 0; i != 5; i++) {
         printf("%s", INOUT[i]);

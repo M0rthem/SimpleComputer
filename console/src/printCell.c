@@ -1,3 +1,4 @@
+#include "console.h"
 #include "mySimpleComputer.h"
 #include <myTerm.h>
 #include <stdio.h>
@@ -7,6 +8,10 @@ void printCell(int address, enum colors fg, enum colors bg)
     mt_setfgcolor(fg);
     mt_setbgcolor(bg);
 
+    if (address == nowRedact) {
+        mt_setfgcolor(BLACK);
+        mt_setbgcolor(WHITE);
+    }
     int y = (address / 10) + 2;
     int x = (address % 10) * 6 + 1 + 1;
     mt_gotoXY(x, y);
