@@ -57,6 +57,7 @@ int main(int argc, char* argv[])
 
     printAccumulator();
     printCounters();
+    printCommand();
     sc_regInit();
     printFlags();
     printTerm(4, 1);
