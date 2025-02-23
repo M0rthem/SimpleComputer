@@ -4,3 +4,4 @@ console/obj/*.o
 console/pr01
 console/console
 console/font
+console/font.bin
