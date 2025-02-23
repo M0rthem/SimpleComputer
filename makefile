@@ -5,9 +5,22 @@ OBJ = obj
 
 INCLUDES = ./include
 
+MAIN_CONSOLE = console.c
+MAIN_FONT = font.c
+
+
 CONSOLEDIR = ./console
-SRCS_CONSOLE = $(wildcard $(CONSOLEDIR)/$(SRC)/*.c)
+# Исходники
+SRCS_CONSOLE = $(filter-out $(CONSOLEDIR)/$(SRC)/$(MAIN_FONT), $(wildcard $(CONSOLEDIR)/$(SRC)/*.c))
+SRCS_FONT = $(filter-out $(CONSOLEDIR)/$(SRC)/$(MAIN_CONSOLE), $(wildcard $(CONSOLEDIR)/$(SRC)/*.c))
+
+# Объекты
 OBJS_CONSOLE = $(SRCS_CONSOLE:$(CONSOLEDIR)/$(SRC)/%.c=$(CONSOLEDIR)/$(OBJ)/%.o)
+OBJS_FONT = $(SRCS_FONT:$(CONSOLEDIR)/$(SRC)/%.c=$(CONSOLEDIR)/$(OBJ)/%.o)
+
+# Исполняемые файлы
+CONSOLE_EXE = $(CONSOLEDIR)/console
+FONT_EXE = $(CONSOLEDIR)/font
 
 COMPUTERDIR = ./mySimpleComputer
 SRCS_COMPUTER = $(wildcard $(COMPUTERDIR)/$(SRC)/*c)
@@ -27,10 +40,13 @@ OBJS_CHARS = $(SRCS_CHARS:$(CHARSDIR)/$(SRC)/%.c=$(CHARSDIR)/$(OBJ)/%.o)
 LIBCHARSC = myBigChars
 LIBCHARSPATH = $(CHARSDIR)/lib$(LIBCHARSC).a
 
-all: ./console/console
+all: console font
 
-./console/console: $(OBJS_CONSOLE) $(LIBCOMPUTERPATH) $(LIBTERMPATH) $(LIBCHARSPATH)
+console: $(OBJS_CONSOLE) $(LIBCOMPUTERPATH) $(LIBTERMPATH) $(LIBCHARSPATH)
 	$(CC) $(OBJS_CONSOLE) -L $(COMPUTERDIR) -L $(TERMDIR) -L $(CHARSDIR) -l$(LIBCOMPUTER) -l$(LIBTERMINC) -l$(LIBCHARSC) -o ./console/console
+
+font: $(LIBCOMPUTERPATH) $(LIBTERMPATH) $(LIBCHARSPATH) $(OBJS_FONT)
+	$(CC) $(OBJS_FONT) -L $(COMPUTERDIR) -L $(TERMDIR) -L $(CHARSDIR) -l$(LIBCOMPUTER) -l$(LIBTERMINC) -l$(LIBCHARSC) -o ./console/font
 
 $(CONSOLEDIR)/$(OBJ)/%.o: $(CONSOLEDIR)/$(SRC)/%.c
 	$(CC) -c -I $(INCLUDES) $< -o $@
@@ -58,4 +74,4 @@ $(CHARSDIR)/$(OBJ)/%.o: $(CHARSDIR)/$(SRC)/%.c
 	$(CC) -c -I $(INCLUDES) $< -o $@
 
 clean:
-	rm -rf $(OBJS_CONSOLE) $(OBJS_TERM) $(OBJS_COMPUTER) $(OBJS_CHARS) $(LIBTERMPATH) $(LIBCOMPUTERPATH) $(LIBCHARSPATH) ./console/console
+	rm -rf $(OBJS_CONSOLE) $(OBJS_TERM) $(OBJS_COMPUTER) $(OBJS_CHARS) $(LIBTERMPATH) $(LIBCOMPUTERPATH) $(LIBCHARSPATH) $(CONSOLE_EXE) $(FONT_EXE)
