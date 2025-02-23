@@ -30,7 +30,7 @@ void printBigCell(void)
     bc_printbigchar(bigchar[command1], 72, 9, WHITE, BLACK);
     bc_printbigchar(bigchar[command2], 81, 9, WHITE, BLACK);
     bc_printbigchar(bigchar[opperand1], 90, 9, WHITE, BLACK);
-    bc_printbigchar(bigchar[opperand1], 99, 9, WHITE, BLACK);
+    bc_printbigchar(bigchar[opperand2], 99, 9, WHITE, BLACK);
     mt_gotoXY(63, 17);
     mt_setfgcolor(BLUE);
     printf("Номер редактируемой ячейки: %0*u", 3, nowRedact);
