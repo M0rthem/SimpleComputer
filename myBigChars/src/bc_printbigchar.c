@@ -20,5 +20,6 @@ int bc_printbigchar(int big[2], int x, int y, enum colors fg, enum colors bg)
         fflush(stdout);
     }
     write(1, "\033(B", 3);
+    mt_setdefaultcolor();
     return 0;
 }
