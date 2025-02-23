@@ -41,23 +41,19 @@ int main(int argc, char* argv[])
         printf("error: cant read file");
         return -1;
     }
+
     mt_clrscr();
 
     sc_memoryInit();
-    sc_memorySet(0, 53456);
-    sc_memorySet(1, 64577);
-    sc_memorySet(2, 67956);
-    sc_memorySet(3, 4237);
-    sc_memorySet(4, 8665898);
-    nowRedact = 3;
+    sc_accumulatorInit();
+    sc_regInit();
+    sc_icounterInit();
 
-    for (int i = 0; i != 128; i++) {
-        printCell(i, WHITE, BLACK);
-    }
-
-    int value;
-    sc_memoryGet(nowRedact, &value);
-    printDecodedCommand(value);
+    sc_memorySet(0, 543);
+    sc_memorySet(1, 6577);
+    sc_memorySet(2, 7563);
+    sc_memorySet(3, 15253);
+    sc_memorySet(4, 8398);
 
     printAccumulator();
     printCounters();
@@ -70,8 +66,20 @@ int main(int argc, char* argv[])
     printTerm(6, 1);
     printTerm(34, 1);
     printTerm(0, 1);
-    printCommand();
-    mt_gotoXY(1, 30);
+
+    nowRedact = 3;
+
+    for (int i = 0; i != 128; i++) {
+        if (i == nowRedact) {
+            printCell(i, BLACK, WHITE);
+            continue;
+        }
+        printCell(i, WHITE, BLACK);
+    }
+
+    int value;
+    sc_memoryGet(nowRedact, &value);
+    printDecodedCommand(value);
 
     bc_box(1, 1, 61, 15, WHITE, BLACK, "Оперативная память", RED, BLACK);
     bc_box(1,
