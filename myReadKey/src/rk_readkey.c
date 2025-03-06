@@ -15,7 +15,7 @@ int rk_readkey(enum keys* key)
     if (nbytes == 3) {
         if (buffer[0] == '\033', buffer[1] == '[') {
             if (buffer[2] == 'A') {
-                key = KEY_UP;
+                *key = KEY_UP;
             }
         }
     }
