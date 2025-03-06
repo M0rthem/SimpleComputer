@@ -1,6 +1,9 @@
 #include "myReadKey.h"
-
-int re_mytermregime(int regime, int vtime, int vmin, int echo, int sigint)
+/*
+regime = 1 - канон
+regime = 0 - не канон
+*/
+int rk_mytermregime(int regime, int vtime, int vmin, int echo, int sigint)
 {
     struct termios options;
 
