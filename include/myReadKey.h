@@ -6,8 +6,8 @@
 enum keys {
     KEY_UP,
     KEY_DOWN,
-    KEY_LEFT,
     KEY_RIGHT,
+    KEY_LEFT,
     KEY_F5,
     KEY_F6,
     KEY_ENTER,

@@ -12,11 +12,11 @@ MAIN_FONT = font.c
 CONSOLEDIR = ./console
 # Исходники
 SRCS_CONSOLE = $(filter-out $(CONSOLEDIR)/$(SRC)/$(MAIN_FONT), $(wildcard $(CONSOLEDIR)/$(SRC)/*.c))
-SRCS_FONT = $(filter-out $(CONSOLEDIR)/$(SRC)/$(MAIN_CONSOLE), $(wildcard $(CONSOLEDIR)/$(SRC)/*.c))
+SRCS_FONT = $(CONSOLEDIR)/$(MAIN_FONT)
 
 # Объекты
 OBJS_CONSOLE = $(SRCS_CONSOLE:$(CONSOLEDIR)/$(SRC)/%.c=$(CONSOLEDIR)/$(OBJ)/%.o)
-OBJS_FONT = $(SRCS_FONT:$(CONSOLEDIR)/$(SRC)/%.c=$(CONSOLEDIR)/$(OBJ)/%.o)
+OBJS_FONT = $(CONSOLEDIR)/$(OBJ)/font.o
 
 # Исполняемые файлы
 CONSOLE_EXE = $(CONSOLEDIR)/console
@@ -51,8 +51,8 @@ all: console font
 console: $(OBJS_CONSOLE) $(LIBCOMPUTERPATH) $(LIBTERMPATH) $(LIBCHARSPATH) $(LIBKEYPATH)
 	$(CC) $(OBJS_CONSOLE) -L $(COMPUTERDIR) -L $(TERMDIR) -L $(CHARSDIR) -L $(KEYDIR) -l$(LIBCOMPUTER) -l$(LIBTERMINC) -l$(LIBCHARSC) -l$(LIBKEYC) -o ./console/console
 
-font: $(LIBCOMPUTERPATH) $(LIBTERMPATH) $(LIBCHARSPATH) $(OBJS_FONT) $(LIBKEYPATH)
-	$(CC) $(OBJS_FONT) -L $(COMPUTERDIR) -L $(TERMDIR) -L $(CHARSDIR) -l$(LIBCOMPUTER) -L $(KEYDIR) -l$(LIBTERMINC) -l$(LIBCHARSC) -l$(LIBKEYC) -o ./console/font
+font: $(LIBCHARSPATH) $(OBJS_FONT)
+	$(CC) $(OBJS_FONT) -L $(CHARSDIR) -l$(LIBCHARSC) -o ./console/font
 
 $(CONSOLEDIR)/$(OBJ)/%.o: $(CONSOLEDIR)/$(SRC)/%.c
 	$(CC) -c -I $(INCLUDES) $< -o $@
