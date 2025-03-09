@@ -1,11 +1,9 @@
 #include "myReadKey.h"
 #include <termios.h>
 #include <unistd.h>
+
 int rk_readkey(enum keys* key)
 {
-    rk_mytermsave();
-    rk_mytermregime(0, 0, 1, 0, 0);
-
     char buffer[8];
     int nbytes;
     nbytes = read(0, buffer, 7);
@@ -18,6 +16,60 @@ int rk_readkey(enum keys* key)
             break;
         case '\033':
             *key = KEY_ESCAPE;
+            break;
+        case '+':
+            *key = KEY_PLUS;
+            break;
+        case '-':
+            *key = KEY_MINUS;
+            break;
+        case '0':
+            *key = KEY_ZERO;
+            break;
+        case '1':
+            *key = KEY_ONE;
+            break;
+        case '2':
+            *key = KEY_TWO;
+            break;
+        case '3':
+            *key = KEY_THREE;
+            break;
+        case '4':
+            *key = KEY_FOUR;
+            break;
+        case '5':
+            *key = KEY_FIFE;
+            break;
+        case '6':
+            *key = KEY_SIX;
+            break;
+        case '7':
+            *key = KEY_SEVEN;
+            break;
+        case '8':
+            *key = KEY_EIGHT;
+            break;
+        case '9':
+            *key = KEY_NINE;
+            break;
+        case 'A':
+            *key = KEY_A;
+            break;
+        case 'B':
+            *key = KEY_B;
+            break;
+        case 'C':
+            *key = KEY_C;
+            break;
+        case 'D':
+            *key = KEY_D;
+            break;
+        case 'E':
+            *key = KEY_E;
+            break;
+        case 'F':
+            *key = KEY_F;
             break;
         }
     }
@@ -51,6 +103,4 @@ int rk_readkey(enum keys* key)
             }
         }
     }
-
-    rk_mytermstore();
 }
