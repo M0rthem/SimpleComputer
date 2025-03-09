@@ -1,5 +1,6 @@
 #include "console.h"
 #include "myBigChars.h"
+#include "myReadKey.h"
 #include "mySimpleComputer.h"
 #include <fcntl.h>
 #include <stdio.h>
@@ -36,6 +37,7 @@ int main(int argc, char* argv[])
         printf("error open file");
         return -1;
     }
+
     int count;
     if (bc_bigcahrread(fd, bigchar[0], 18, &count)) {
         printf("error: cant read file");
@@ -48,27 +50,14 @@ int main(int argc, char* argv[])
     sc_accumulatorInit();
     sc_regInit();
     sc_icounterInit();
-
-    sc_memorySet(0, 543);
-    sc_memorySet(1, 6577);
-    sc_memorySet(2, 7563);
-    sc_memorySet(3, 15253);
-    sc_memorySet(4, 8398);
+    sc_regInit();
 
     printAccumulator();
     printCounters();
     printCommand();
-    sc_regInit();
     printFlags();
-    printTerm(4, 1);
-    printTerm(32, 1);
-    printTerm(5, 1);
-    printTerm(3, 1);
-    printTerm(6, 1);
-    printTerm(34, 1);
-    printTerm(0, 1);
 
-    nowRedact = 3;
+    nowRedact = 0;
 
     for (int i = 0; i != 128; i++) {
         if (i == nowRedact) {
@@ -77,7 +66,6 @@ int main(int argc, char* argv[])
         }
         printCell(i, WHITE, BLACK);
     }
-
     int value;
     sc_memoryGet(nowRedact, &value);
     printDecodedCommand(value);
@@ -107,9 +95,73 @@ int main(int argc, char* argv[])
            WHITE);
     bc_box(67, 19, 11, 7, WHITE, BLACK, "IN-OUT", GREEN, WHITE);
     bc_box(1, 19, 66, 7, WHITE, BLACK, "Кэш процессора", GREEN, WHITE);
-    bc_box(78, 19, 31, 7, WHITE, BLACK, "Клавиши", GREEN, WHITE);
+    bc_box(78, 19, 30, 7, WHITE, BLACK, "Клавиши", GREEN, WHITE);
 
     printBigCell();
+
     mt_gotoXY(1, 30);
+
+    rk_mytermregime(0, 0, 1, 0, 0);
+
+    enum keys key;
+    while (rk_readkey(&key), key != KEY_ESCAPE) {
+        rk_mytermregime(0, 0, 1, 0, 0);
+        if (key == KEY_OTHER) {
+            continue;
+        } else if (key == KEY_UP) {
+            if (nowRedact < 10) {
+                continue;
+            }
+            printCell(nowRedact, WHITE, BLACK);
+            nowRedact -= 10;
+        } else if (key == KEY_ENTER) {
+            mt_setbgcolor(GREEN);
+            mt_setfgcolor(BLACK);
+            int y = (nowRedact / 10) + 2;
+            int x = (nowRedact % 10) * 6 + 1 + 1;
+            mt_gotoXY(x, y);
+            write(1, "     ", 5);
+            mt_gotoXY(x, y);
+            int value;
+            if (!rk_readvalue(&value)) {
+                while (rk_readkey(&key),
+                       key != KEY_ENTER && key != KEY_ESCAPE) {
+                }
+                if (key == KEY_ENTER) {
+                    sc_memorySet(nowRedact, value);
+
+                } else if (key == KEY_ESCAPE) {
+                }
+            }
+            mt_setdefaultcolor();
+        } else if (key == KEY_DOWN) {
+            if (nowRedact > 117) {
+                continue;
+            }
+            printCell(nowRedact, WHITE, BLACK);
+            nowRedact += 10;
+        } else if (key == KEY_RIGHT) {
+            if (nowRedact == 127) {
+                continue;
+            }
+            printCell(nowRedact, WHITE, BLACK);
+            nowRedact++;
+        } else if (key == KEY_LEFT) {
+            if (nowRedact == 0) {
+                continue;
+            }
+            printCell(nowRedact, WHITE, BLACK);
+            nowRedact--;
+        }
+
+        printCell(nowRedact, BLACK, WHITE);
+        printBigCell();
+        int value;
+        sc_memoryGet(nowRedact, &value);
+        printDecodedCommand(value);
+        mt_gotoXY(1, 30);
+    }
+
+    rk_mytermregime(1, 0, 0, 0, 0);
     return 0;
 }
