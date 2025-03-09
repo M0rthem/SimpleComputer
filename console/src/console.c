@@ -116,6 +116,8 @@ int main(int argc, char* argv[])
 
     printBigCell();
 
+    mt_setcursorvisible(0);
+
     mt_gotoXY(1, 30);
 
     rk_mytermregime(0, 0, 1, 0, 0);
@@ -218,14 +220,23 @@ int main(int argc, char* argv[])
         } else if (key == KEY_s) {
             rk_mytermregime(1, 0, 0, 0, 1);
             mt_gotoXY(1, 26);
+            mt_deline();
             char buffer[150];
             printf("Введите имя файла для сохораниния: ");
+            mt_setcursorvisible(1);
             fgets(buffer, sizeof(buffer), stdin);
+            mt_setcursorvisible(0);
+            mt_gotoXY(1, 26);
+            mt_deline();
             size_t len = strlen(buffer);
             if (len > 0 && buffer[len - 1] == '\n') {
                 buffer[len - 1] = '\0';
             }
-            sc_memorySave(buffer);
+            if (sc_memorySave(buffer)) {
+                printf("Ошибка при сохранении файла %s", buffer);
+            } else {
+                printf("Файл %s успешно сохранен", buffer);
+            }
             fflush(stdout);
             rk_mytermregime(0, 0, 1, 0, 0);
         } else if (key == KEY_DOWN) {
