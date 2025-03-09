@@ -239,6 +239,34 @@ int main(int argc, char* argv[])
             }
             fflush(stdout);
             rk_mytermregime(0, 0, 1, 0, 0);
+        } else if (key == KEY_l) {
+            rk_mytermregime(1, 0, 0, 0, 1);
+            mt_gotoXY(1, 26);
+            mt_deline();
+            char buffer[150];
+            printf("Введите имя файла для загрузки: ");
+            mt_setcursorvisible(1);
+            fgets(buffer, sizeof(buffer), stdin);
+            mt_setcursorvisible(0);
+            mt_gotoXY(1, 26);
+            mt_deline();
+            size_t len = strlen(buffer);
+            if (len > 0 && buffer[len - 1] == '\n') {
+                buffer[len - 1] = '\0';
+            }
+            if (sc_memoryLoad(buffer)) {
+                printf("Ошибка при чтении файла %s", buffer);
+            } else {
+                mt_gotoXY(1, 26);
+                mt_deline();
+                printf("Файл %s успешно считан", buffer);
+                fflush(stdout);
+                for (int i = 0; i != 128; i++) {
+                    printCell(i, WHITE, BLACK);
+                }
+            }
+            fflush(stdout);
+            rk_mytermregime(0, 0, 1, 0, 0);
         } else if (key == KEY_DOWN) {
             if (nowRedact > 117) {
                 continue;
@@ -266,7 +294,7 @@ int main(int argc, char* argv[])
         printDecodedCommand(value);
         mt_gotoXY(1, 30);
     }
-
+    mt_setcursorvisible(1);
     rk_mytermregime(1, 0, 0, 0, 0);
     return 0;
 }
