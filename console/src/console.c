@@ -4,6 +4,7 @@
 #include "mySimpleComputer.h"
 #include <fcntl.h>
 #include <stdio.h>
+#include <string.h>
 #include <sys/ioctl.h>
 #include <unistd.h>
 
@@ -82,7 +83,7 @@ int main(int argc, char* argv[])
            WHITE);
     bc_box(62, 1, 23, 3, WHITE, BLACK, "Аккумулятор", RED, BLACK);
     bc_box(85, 1, 23, 3, WHITE, BLACK, "Регист флагов", RED, BLACK);
-    bc_box(62, 4, 23, 3, WHITE, BLACK, "Счетчик команд", RED, BLACK);
+    bc_box(61, 4, 23, 3, WHITE, BLACK, "Счетчик команд", RED, BLACK);
     bc_box(85, 4, 23, 3, WHITE, BLACK, "Команда", RED, BLACK);
     bc_box(62,
            7,
@@ -93,9 +94,25 @@ int main(int argc, char* argv[])
            "Редактируемая команда (увеличено)",
            RED,
            WHITE);
-    bc_box(67, 19, 11, 7, WHITE, BLACK, "IN-OUT", GREEN, WHITE);
-    bc_box(1, 19, 66, 7, WHITE, BLACK, "Кэш процессора", GREEN, WHITE);
-    bc_box(78, 19, 30, 7, WHITE, BLACK, "Клавиши", GREEN, WHITE);
+    bc_box(66, 19, 11, 7, WHITE, BLACK, "IN-OUT", GREEN, WHITE);
+    bc_box(1, 19, 65, 7, WHITE, BLACK, "Кэш процессора", GREEN, WHITE);
+    bc_box(77, 19, 31, 7, WHITE, BLACK, "Клавиши", GREEN, WHITE);
+
+    mt_gotoXY(78, 20);
+    printf("l - load  s - save  i - reset\n");
+    fflush(stdout);
+    mt_gotoXY(78, 21);
+    printf("r - run  t - step\n");
+    fflush(stdout);
+    mt_gotoXY(78, 22);
+    printf("ESC - выход\n");
+    fflush(stdout);
+    mt_gotoXY(78, 23);
+    printf("F5 - accumulator\n");
+    fflush(stdout);
+    mt_gotoXY(78, 24);
+    printf("F6  - instruction counter\n");
+    fflush(stdout);
 
     printBigCell();
 
@@ -198,6 +215,19 @@ int main(int argc, char* argv[])
 
             printCounters();
             printCommand();
+        } else if (key == KEY_s) {
+            rk_mytermregime(1, 0, 0, 0, 1);
+            mt_gotoXY(1, 26);
+            char buffer[150];
+            printf("Введите имя файла для сохораниния: ");
+            fgets(buffer, sizeof(buffer), stdin);
+            size_t len = strlen(buffer);
+            if (len > 0 && buffer[len - 1] == '\n') {
+                buffer[len - 1] = '\0';
+            }
+            sc_memorySave(buffer);
+            fflush(stdout);
+            rk_mytermregime(0, 0, 1, 0, 0);
         } else if (key == KEY_DOWN) {
             if (nowRedact > 117) {
                 continue;

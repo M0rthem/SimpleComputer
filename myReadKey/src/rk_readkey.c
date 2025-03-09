@@ -71,6 +71,15 @@ int rk_readkey(enum keys* key)
         case 'F':
             *key = KEY_F;
             break;
+        case 'l':
+            *key = KEY_l;
+            break;
+        case 's':
+            *key = KEY_s;
+            break;
+        case 'i':
+            *key = KEY_i;
+            break;
         }
     }
     if (nbytes == 3) {

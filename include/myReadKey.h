@@ -30,6 +30,9 @@ enum keys {
     KEY_D = 68,
     KEY_E = 69,
     KEY_F = 70,
+    KEY_i = 105,
+    KEY_l = 108,
+    KEY_s = 115,
     KEY_OTHER
 };
 
