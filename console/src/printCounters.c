@@ -11,14 +11,8 @@ void printCounters(void)
     int command;
     int opperand;
     sc_icounterGet(&value);
-    sc_commandDecode(value, &sign, &command, &opperand);
 
-    printf("T: 00     IC: ");
-    if (sign == 0) {
-        putchar('+');
-    } else {
-        putchar('-');
-    }
-    printf("%0*X%0*x", 2, command, 2, opperand);
+    printf(" T: %02X     IC: ", value);
+
     fflush(stdout);
 }

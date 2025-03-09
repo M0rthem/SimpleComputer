@@ -134,6 +134,70 @@ int main(int argc, char* argv[])
                 }
             }
             mt_setdefaultcolor();
+        } else if (key == KEY_F5) {
+            mt_setbgcolor(GREEN);
+            mt_setfgcolor(BLACK);
+            mt_gotoXY(68, 2);
+            write(1, "     ", 5);
+            mt_gotoXY(68, 2);
+            int value;
+            if (!rk_readvalue(&value)) {
+                while (rk_readkey(&key),
+                       key != KEY_ENTER && key != KEY_ESCAPE) {
+                }
+                if (key == KEY_ENTER) {
+                    sc_accumulatorSet(value);
+
+                } else if (key == KEY_ESCAPE) {
+                }
+            }
+            mt_setdefaultcolor();
+            printAccumulator();
+        } else if (key == KEY_F6) {
+            mt_setbgcolor(GREEN);
+            mt_setfgcolor(BLACK);
+            mt_gotoXY(67, 5);
+            write(1, "  ", 2);
+            mt_gotoXY(67, 5);
+
+            int value = 0;
+
+            for (int i = 0; i != 2; i++) {
+                while (rk_readkey(&key),
+                       !((key >= KEY_ZERO && key <= KEY_NINE)
+                         || (key >= KEY_A && key <= KEY_F))) {
+                    if (key == KEY_ESCAPE) {
+                        break;
+                    }
+                }
+                if (key == KEY_ESCAPE) {
+                    break;
+                }
+
+                int addCommand = 0;
+                if (key >= KEY_ZERO && key <= KEY_NINE) {
+                    addCommand = key - 48;
+                } else {
+                    addCommand = key - 55;
+                }
+                write(1, &key, 1);
+                value <<= 4;
+                value |= addCommand;
+            }
+            mt_setdefaultcolor();
+            if (key != KEY_ESCAPE) {
+                while (rk_readkey(&key),
+                       key != KEY_ENTER && key != KEY_ESCAPE) {
+                }
+                if (key == KEY_ENTER) {
+                    sc_icounerSet(value);
+
+                } else if (key == KEY_ESCAPE) {
+                }
+            }
+
+            printCounters();
+            printCommand();
         } else if (key == KEY_DOWN) {
             if (nowRedact > 117) {
                 continue;
