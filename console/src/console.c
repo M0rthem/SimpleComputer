@@ -267,6 +267,20 @@ int main(int argc, char* argv[])
             }
             fflush(stdout);
             rk_mytermregime(0, 0, 1, 0, 0);
+        } else if (key == KEY_i) {
+            sc_memoryInit();
+            sc_accumulatorInit();
+            sc_regInit();
+            sc_icounterInit();
+            sc_regInit();
+            for (int address = 0; address != 128; address++) {
+                printCell(address, WHITE, BLACK);
+            }
+            printAccumulator();
+            printCounters();
+            printCommand();
+            printFlags();
+
         } else if (key == KEY_DOWN) {
             if (nowRedact > 117) {
                 continue;
