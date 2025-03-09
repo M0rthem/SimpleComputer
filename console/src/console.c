@@ -83,7 +83,7 @@ int main(int argc, char* argv[])
            WHITE);
     bc_box(62, 1, 23, 3, WHITE, BLACK, "Аккумулятор", RED, BLACK);
     bc_box(85, 1, 23, 3, WHITE, BLACK, "Регист флагов", RED, BLACK);
-    bc_box(61, 4, 23, 3, WHITE, BLACK, "Счетчик команд", RED, BLACK);
+    bc_box(62, 4, 23, 3, WHITE, BLACK, "Счетчик команд", RED, BLACK);
     bc_box(85, 4, 23, 3, WHITE, BLACK, "Команда", RED, BLACK);
     bc_box(62,
            7,
