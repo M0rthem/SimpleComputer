@@ -2,7 +2,7 @@
 #define MYTYPE_H
 
 typedef struct {
-    int var : 15;
+    unsigned int var : 15;
 } int_15bit;
 
 #endif
