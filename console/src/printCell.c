@@ -17,12 +17,12 @@ void printCell(int address, enum colors fg, enum colors bg)
     int sign = 0;
     int command = 0;
     int opperand = 0;
+    sc_commandDecode(value, &sign, &command, &opperand);
     if (sign == 0) {
         putchar('+');
     } else {
         putchar('-');
     }
-    sc_commandDecode(value, &sign, &command, &opperand);
     printf("%0*X%0*X", 2, command, 2, opperand);
     fflush(stdout);
     mt_setdefaultcolor();
