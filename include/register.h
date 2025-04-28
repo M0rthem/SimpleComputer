@@ -5,6 +5,7 @@
 
 extern int_15bit accumulator;
 extern int_15bit commandCounter;
+extern int_15bit commandIgnoreTacktCounter;
 
 extern int flagsRegister;
 #define REGISTER_OVERFLOW 1

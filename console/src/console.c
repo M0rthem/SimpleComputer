@@ -3,10 +3,13 @@
 #include "myReadKey.h"
 #include "mySimpleComputer.h"
 #include <fcntl.h>
+#include <signal.h>
 #include <stdio.h>
 #include <string.h>
 #include <sys/ioctl.h>
 #include <unistd.h>
+
+int is_execute = 0;
 
 int main(int argc, char* argv[])
 {
@@ -299,10 +302,25 @@ int main(int argc, char* argv[])
             }
             printCell(nowRedact, WHITE, BLACK);
             nowRedact--;
+        } else if (key == KEY_r) {
+            is_execute = 1;
+            printCell(nowRedact, WHITE, BLACK);
+            sc_regSet(REGISTER_IGNORE_TACT, 0);
+            TactsGenOn();
+            while (is_execute == 1) {
+            }
+        } else if (key == KEY_t) {
+            CU();
+            printAccumulator();
+            printCounters();
         }
 
         printCell(nowRedact, BLACK, WHITE);
         printBigCell();
+        printFlags();
+        printAccumulator();
+        printCounters();
+        printCommand();
         int value;
         sc_memoryGet(nowRedact, &value);
         printDecodedCommand(value);

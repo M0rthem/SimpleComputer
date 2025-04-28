@@ -20,6 +20,6 @@ void printAccumulator(void)
     } else {
         putchar('-');
     }
-    printf("%0*X%0*X hex: %0*X", 2, command, 2, opperand, 4, value);
+    printf("%0*X%0*X hex: %0*X", 2, command, 2, opperand, 4, value & 0x7FFF);
     fflush(stdout);
 }

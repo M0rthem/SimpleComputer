@@ -1,6 +1,7 @@
 #include "myReadKey.h"
 #include "mySimpleComputer.h"
 #include "myTerm.h"
+#include "mytype.h"
 #include <stdio.h>
 #include <unistd.h>
 // я считаю в моей версии timeout не нужен
@@ -10,13 +11,13 @@
 
 int rk_readvalue(int* value)
 {
+    int_15bit answer;
     struct termios Save;
     tcgetattr(1, &Save);
 
     rk_mytermregime(0, 0, 1, 0, 0);
     enum keys key;
-
-    //ввод знака + или -
+    // ввод знака + или -
     while (rk_readkey(&key), key != KEY_MINUS && key != KEY_PLUS) {
         if (key == KEY_ESCAPE) {
             tcsetattr(1, TCSANOW, &Save);
@@ -26,10 +27,10 @@ int rk_readvalue(int* value)
     tcsetattr(1, TCSANOW, &Save);
     write(1, (key == KEY_PLUS) ? "+" : "-", 1);
 
-    *value = (key == KEY_PLUS) ? 0 : 1;
+    answer.var = (key == KEY_PLUS) ? 0 : 1;
     rk_mytermregime(0, 0, 1, 0, 0);
 
-    //ввод команды 4 16-ных знака
+    // ввод команды 4 16-ных знака
     for (int i = 0; i != 4; i++) {
         while (rk_readkey(&key),
                !((key >= KEY_ZERO && key <= KEY_NINE)
@@ -52,14 +53,14 @@ int rk_readvalue(int* value)
             i--;
             continue;
         }
-        *value <<= step;
-        *value |= addCommand;
+        answer.var <<= step;
+        answer.var |= addCommand;
         tcsetattr(1, TCSANOW, &Save);
         char c = key;
         write(1, &c, 1);
         rk_mytermregime(0, 0, 1, 0, 0);
     }
+    *value = answer.var;
     tcsetattr(1, TCSANOW, &Save);
-    *value = (unsigned int)*value;
     return 0;
 }

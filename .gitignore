@@ -1,5 +1,6 @@
 *.a
 *.o
+*.prog
 console/obj/*.o
 console/pr01
 console/console
