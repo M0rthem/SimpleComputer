@@ -9,5 +9,8 @@ void printDecodedCommand(int value);
 void printFlags(void);
 void printTerm(int address, int input);
 void printCommand(void);
+void printBigCell(void);
+
+extern int nowRedact;
 
 #endif

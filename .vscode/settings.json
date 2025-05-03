@@ -2,6 +2,11 @@
     "files.associations": {
         "register.h": "c",
         "stdio.h": "c",
-        "vector": "c"
+        "vector": "c",
+        "termios.h": "c",
+        "time.h": "c",
+        "commands.h": "c",
+        "string.h": "c",
+        "assembler.h": "c"
     }
 }
