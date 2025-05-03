@@ -40,7 +40,6 @@ int ALU(int command, int operand)
         }
         sc_memoryGet(currentAccum, &pointAccumValue);
         sc_memoryGet(operand, &memoryCell);
-        result = memoryCell + pointAccumValue;
         break;
     case SUBC:
         if (currentAccum < 0 || currentAccum > 127) {
