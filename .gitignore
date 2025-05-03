@@ -1,7 +1,7 @@
 *.a
 *.o
 *.prog
-*.sat
+*sat
 *.font
 *.sa
 console/obj/*.o
