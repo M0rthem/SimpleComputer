@@ -20,6 +20,7 @@ int Validate(Instruction inst)
         }
     }
     if (commandIsValid == 0) {
+        printf("%s", inst.command);
         return -1;
     }
 

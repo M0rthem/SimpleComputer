@@ -1,3 +1,4 @@
+#include "cache.h"
 #include "commands.h"
 #include "execValue.h"
 #include "mySimpleComputer.h"
@@ -11,7 +12,7 @@ int ALU(int command, int operand)
     int currentAccum, memoryCell;
 
     sc_accumulatorGet(&currentAccum);
-    sc_memoryGet(operand, &memoryCell);
+    sc_memoryControllerGet(operand, &memoryCell);
 
     int result;
     switch (command) {
@@ -38,8 +39,8 @@ int ALU(int command, int operand)
             sc_regSet(REGISTER_IGNORE_TACT, 1);
             is_execute = 0;
         }
-        sc_memoryGet(currentAccum, &pointAccumValue);
-        sc_memoryGet(operand, &memoryCell);
+        sc_memoryControllerGet(currentAccum, &pointAccumValue);
+        sc_memoryControllerGet(operand, &memoryCell);
         break;
     case SUBC:
         if (currentAccum < 0 || currentAccum > 127) {
@@ -47,7 +48,7 @@ int ALU(int command, int operand)
             sc_regSet(REGISTER_IGNORE_TACT, 1);
             is_execute = 0;
         }
-        sc_memoryGet(operand, &memoryCell);
+        sc_memoryControllerGet(operand, &memoryCell);
         result = memoryCell - pointAccumValue;
         break;
     }

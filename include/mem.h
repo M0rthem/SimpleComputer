@@ -5,5 +5,7 @@
 
 #define memorySize 128
 extern int_15bit memory[];
+extern int skipTacts;
+extern int memoryPing;
 
 #endif

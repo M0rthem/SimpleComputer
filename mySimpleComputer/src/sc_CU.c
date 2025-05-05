@@ -1,3 +1,4 @@
+#include "cache.h"
 #include "commands.h"
 #include "console.h"
 #include "execValue.h"
@@ -12,15 +13,10 @@ void CU(void)
     int value;
     int comandline;
     sc_icounterGet(&value);
-    sc_memoryGet(value, &comandline);
-    sc_commandDecode(comandline, &sign, &command, &opperand);
 
-    int ignoreCount;
-    sc_ignorerGet(&ignoreCount);
-    if (ignoreCount > 0) {
-        ignoreCount--;
-        return;
-    }
+    sc_memoryControllerGet(value, &comandline);
+
+    sc_commandDecode(comandline, &sign, &command, &opperand);
 
     if (sign == 1) {
         sc_regSet(REGISTER_INCORRECT_COMMAND, 1);
@@ -38,6 +34,7 @@ void CU(void)
             return;
         }
         printTerm(opperand, 1);
+        sc_regSet(REGISTER_IGNORE_TACT, 0);
         printCell(opperand, WHITE, BLACK);
         sc_regSet(REGISTER_IGNORE_TACT, 0);
         break;
@@ -103,7 +100,7 @@ void CU(void)
             is_execute = 0;
             return;
         }
-        sc_memoryGet(opperand, &tempVal);
+        sc_memoryControllerGet(opperand, &tempVal);
         sc_accumulatorSet(tempVal);
         break;
     case STORE:
@@ -113,7 +110,7 @@ void CU(void)
             return;
         }
         sc_accumulatorGet(&tempVal);
-        sc_memorySet(opperand, tempVal);
+        sc_memoryControllerSet(opperand, tempVal);
         printCell(opperand, WHITE, BLACK);
         break;
     case JUMP:
@@ -150,6 +147,9 @@ void CU(void)
         }
         break;
     case HALT:
+        for (int i = 0; i != MAX_PAGES; i++) {
+            sc_cacheLineFflush(cache[i].offset);
+        }
         sc_regSet(REGISTER_IGNORE_TACT, 1);
         is_execute = 0;
         return;
@@ -169,6 +169,9 @@ void CU(void)
     if (value < 127 && value >= 0) {
         sc_icounerSet(value + 1);
     } else {
+        for (int i = 0; i != MAX_PAGES; i++) {
+            sc_cacheLineFflush(cache[i].offset);
+        }
         is_execute = 0;
         sc_regSet(REGISTER_IGNORE_TACT, 1);
     }

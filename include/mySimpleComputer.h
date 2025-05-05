@@ -35,4 +35,7 @@ void IRC(int signum);
 void TactsGenOn();
 void TactsGenOff();
 int GenChecker();
+int wait_for_ticks(int n);
+
+int sc_memoryControllerSet(int address, int value);
 #endif
