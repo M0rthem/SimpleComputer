@@ -1,3 +1,4 @@
+#include "console.h"
 #include "mySimpleComputer.h"
 #include <signal.h>
 #include <stdio.h>
@@ -5,18 +6,23 @@
 
 void IRC(int signum)
 {
+    printCounters();
     if (signum == SIGALRM) {
+        int ignoreCount;
+        sc_ignorerGet(&ignoreCount);
+        if (ignoreCount > 0) {
+            ignoreCount--;
+            sc_ignoreSet(ignoreCount);
+            return;
+        }
         int IgnoreRegister;
         sc_regGet(REGISTER_IGNORE_TACT, &IgnoreRegister);
         if (IgnoreRegister == 1) {
             return;
         }
-        int ignoreCount;
-        sc_ignorerGet(&ignoreCount);
-        if (ignoreCount > 0) {
-            ignoreCount--;
-            return;
-        }
+        fflush(stdout);
+
+        printcache();
         CU();
     } else if (signum == SIGUSR1) {
         sc_accumulatorInit();

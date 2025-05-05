@@ -9,6 +9,8 @@
 #include <sys/ioctl.h>
 #include <unistd.h>
 
+#include "cache.h"
+
 int is_execute = 0;
 
 int main(int argc, char* argv[])
@@ -55,11 +57,13 @@ int main(int argc, char* argv[])
     sc_regInit();
     sc_icounterInit();
     sc_regInit();
+    sc_cacheInit();
 
     printAccumulator();
     printCounters();
     printCommand();
     printFlags();
+    printcache();
 
     nowRedact = 0;
 
@@ -121,8 +125,6 @@ int main(int argc, char* argv[])
 
     mt_setcursorvisible(0);
 
-    mt_gotoXY(1, 30);
-
     rk_mytermregime(0, 0, 1, 0, 0);
 
     enum keys key;
@@ -178,46 +180,14 @@ int main(int argc, char* argv[])
         } else if (key == KEY_F6) {
             mt_setbgcolor(GREEN);
             mt_setfgcolor(BLACK);
-            mt_gotoXY(67, 5);
-            write(1, "  ", 2);
-            mt_gotoXY(67, 5);
+            mt_gotoXY(77, 5);
+            write(1, "     ", 5);
+            mt_gotoXY(77, 5);
 
-            int value = 0;
-
-            for (int i = 0; i != 2; i++) {
-                while (rk_readkey(&key),
-                       !((key >= KEY_ZERO && key <= KEY_NINE)
-                         || (key >= KEY_A && key <= KEY_F))) {
-                    if (key == KEY_ESCAPE) {
-                        break;
-                    }
-                }
-                if (key == KEY_ESCAPE) {
-                    break;
-                }
-
-                int addCommand = 0;
-                if (key >= KEY_ZERO && key <= KEY_NINE) {
-                    addCommand = key - 48;
-                } else {
-                    addCommand = key - 55;
-                }
-                write(1, &key, 1);
-                value <<= 4;
-                value |= addCommand;
-            }
+            int value;
+            rk_readvalue(&value);
+            sc_icounerSet(value);
             mt_setdefaultcolor();
-            if (key != KEY_ESCAPE) {
-                while (rk_readkey(&key),
-                       key != KEY_ENTER && key != KEY_ESCAPE) {
-                }
-                if (key == KEY_ENTER) {
-                    sc_icounerSet(value);
-
-                } else if (key == KEY_ESCAPE) {
-                }
-            }
-
             printCounters();
             printCommand();
         } else if (key == KEY_s) {
@@ -309,6 +279,7 @@ int main(int argc, char* argv[])
             TactsGenOn();
             while (is_execute == 1) {
             }
+            TactsGenOff();
         } else if (key == KEY_t) {
             CU();
             printAccumulator();
@@ -321,11 +292,13 @@ int main(int argc, char* argv[])
         printAccumulator();
         printCounters();
         printCommand();
+        printcache();
         int value;
         sc_memoryGet(nowRedact, &value);
         printDecodedCommand(value);
         mt_gotoXY(1, 30);
     }
+    mt_gotoXY(1, 26);
     mt_setcursorvisible(1);
     rk_mytermregime(1, 0, 0, 0, 0);
     return 0;

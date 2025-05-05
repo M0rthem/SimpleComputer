@@ -1,3 +1,4 @@
+#include "cache.h"
 #include "myReadKey.h"
 #include <mySimpleComputer.h>
 #include <myTerm.h>
@@ -5,7 +6,7 @@
 
 char INOUT[5][15] = {"", "", "", "", ""};
 
-void printTerm(int address, int input) // input = 0 вывод иначе ввод
+int printTerm(int address, int input) // input = 0 вывод иначе ввод
 {
     for (int i = 0; i != 4; i++) {
         snprintf(INOUT[i], sizeof(INOUT[i]), "%s", INOUT[i + 1]);
@@ -31,13 +32,15 @@ void printTerm(int address, int input) // input = 0 вывод иначе вво
     int command;
     int opperand;
     int value;
+
+    int tacts;
     if (input == 1) {
         mt_gotoXY(71, 24);
         while (rk_readvalue(&value)) {
         }
-        sc_memorySet(address, value);
+        tacts = sc_memoryControllerSet(address, value);
     } else {
-        sc_memoryGet(address, &value);
+        tacts = sc_memoryControllerGet(address, &value);
     }
 
     sc_commandDecode(value, &sign, &command, &opperand);
@@ -60,4 +63,5 @@ void printTerm(int address, int input) // input = 0 вывод иначе вво
             opperand);
 
     snprintf(INOUT[5 - 1], sizeof(INOUT[5 - 1]), "%s", buffer);
+    return tacts;
 }

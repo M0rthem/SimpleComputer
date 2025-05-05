@@ -7,9 +7,10 @@ void printCell(int address, enum colors fg, enum colors bg);
 void printCounters(void);
 void printDecodedCommand(int value);
 void printFlags(void);
-void printTerm(int address, int input);
+int printTerm(int address, int input);
 void printCommand(void);
 void printBigCell(void);
+void printcache(void);
 
 extern int nowRedact;
 
