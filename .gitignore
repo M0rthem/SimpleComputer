@@ -4,6 +4,8 @@
 *sat
 *.font
 *.sa
+*.ba
+*sbt
 console/obj/*.o
 console/pr01
 console/console

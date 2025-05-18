@@ -7,6 +7,10 @@
         "time.h": "c",
         "commands.h": "c",
         "string.h": "c",
-        "assembler.h": "c"
-    }
+        "assembler.h": "c",
+        "cstdlib": "c",
+        "basic.h": "c",
+        "string": "c"
+    },
+    "C_Cpp.errorSquiggles": "disabled"
 }
