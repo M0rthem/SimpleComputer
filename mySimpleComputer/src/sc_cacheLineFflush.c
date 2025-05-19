@@ -36,9 +36,9 @@ int sc_cacheLineFflush(int offsetLine)
     int ingnoreTacts = memoryPing;
 
     sc_regSet(REGISTER_IGNORE_TACT, 1);
-    sc_ignoreSet(ingnoreTacts);
     virtual_timer vt;
     if (cache[cacheLineindex].is_dirty) {
+        sc_ignoreSet(ingnoreTacts);
         init_vtimer(&vt, 1500000000);
         while (ingnoreTacts != 0) {
             if (check_tick(&vt)) {
