@@ -48,6 +48,7 @@ int sc_cacheLineFflush(int offsetLine)
             }
         }
     }
+    cache[cacheLineindex].is_dirty = 0;
     printcache();
     for (int i = offsetLine; i != offsetLine + SIZE_PAGES; i++) {
         printCell(i, WHITE, BLACK);
