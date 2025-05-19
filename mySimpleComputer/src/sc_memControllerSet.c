@@ -24,6 +24,7 @@ int sc_memoryControllerSet(int address, int value)
         if (cache[i].offset == addressOffset) {
             cache[i].values[address % 10].var = value;
             cache[i].age--;
+            cache[i].is_dirty = 1;
             return 1;
         }
     }
@@ -32,6 +33,7 @@ int sc_memoryControllerSet(int address, int value)
     sc_cacheLineLoad(addressOffset);
     int index = sc_cacheLineIndex(addressOffset);
     cache[index].values[address % 10].var = value;
+    cache[index].is_dirty = 1;
 
     sc_regSet(REGISTER_IGNORE_TACT, 1);
     int ignoreTacts = memoryPing;

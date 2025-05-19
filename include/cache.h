@@ -6,6 +6,7 @@
 typedef struct {
     int offset;
     int age;
+    int is_dirty;
     int_15bit values[SIZE_PAGES];
 } cacheLine;
 

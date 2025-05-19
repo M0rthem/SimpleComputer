@@ -38,12 +38,14 @@ int sc_cacheLineFflush(int offsetLine)
     sc_regSet(REGISTER_IGNORE_TACT, 1);
     sc_ignoreSet(ingnoreTacts);
     virtual_timer vt;
-    init_vtimer(&vt, 1500000000);
-    while (ingnoreTacts != 0) {
-        if (check_tick(&vt)) {
-            ingnoreTacts--;
-            sc_ignoreSet(ingnoreTacts);
-            printCounters();
+    if (cache[cacheLineindex].is_dirty) {
+        init_vtimer(&vt, 1500000000);
+        while (ingnoreTacts != 0) {
+            if (check_tick(&vt)) {
+                ingnoreTacts--;
+                sc_ignoreSet(ingnoreTacts);
+                printCounters();
+            }
         }
     }
     printcache();
