@@ -234,6 +234,11 @@ int main(int argc, char* argv[])
                 mt_deline();
                 printf("Файл %s успешно считан", buffer);
                 fflush(stdout);
+                sc_accumulatorInit();
+                sc_icounterInit();
+                printAccumulator();
+                printCounters();
+                fflush(stdout);
                 for (int i = 0; i != 128; i++) {
                     printCell(i, WHITE, BLACK);
                 }
