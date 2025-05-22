@@ -21,7 +21,7 @@ int sc_memoryControllerGet(int address, int* value)
     for (int i = 0; i != MAX_PAGES; i++) {
         if (cache[i].offset == addressOffset) {
             *value = cache[i].values[address % 10].var;
-            cache[i].age--;
+            cache[i].age = 0;
             return 1;
         }
     }

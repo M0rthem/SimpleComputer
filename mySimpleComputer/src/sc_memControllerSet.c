@@ -23,7 +23,7 @@ int sc_memoryControllerSet(int address, int value)
     for (int i = 0; i != MAX_PAGES; i++) {
         if (cache[i].offset == addressOffset) {
             cache[i].values[address % 10].var = value;
-            cache[i].age--;
+            cache[i].age = 0;
             cache[i].is_dirty = 1;
             return 1;
         }
