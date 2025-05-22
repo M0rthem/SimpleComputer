@@ -13,6 +13,7 @@ int getExtention(char* string, char* buffer)
                 break;
             }
             extpos = i;
+            break;
         }
     }
     if (extpos == -1) {
